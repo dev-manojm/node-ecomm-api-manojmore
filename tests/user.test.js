@@ -61,14 +61,14 @@ test('Should not login wrong user', async()=>{
     }).expect(400)
 })
 
-test('Should get profile for a user', async()=>{
+test('Should get profile for an authenticated user', async()=>{
     await request(app)
     .get('/users/me')
     .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
     .send()
     .expect(200)
 })
-test('Should get profile for a user', async()=>{
+test('Should return the authenticated user profile', async()=>{
     await request(app)
     .get('/users/me')
     .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
@@ -94,7 +94,7 @@ test('Should delete an account for User', async()=>{
 })
 
 
-test('Should not delete an account for unauthenticated User', async()=>{
+test('Should reject account deletion without authentication', async()=>{
     await request(app)
     .delete('/users/me')
     .send()
